@@ -27,7 +27,4 @@ docker_push:
 	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
 
 docker_test:
-	#docker run -d -p 50075:50075 -e NAMENODE=masternode --hostname masternode --name hadoop_test $(DOCKER_IMAGE):$(DOCKER_TAG) $(TEST_COMMAND)
-	#sleep 30
-	#curl -L http://127.0.0.1:50075/
-	#docker rm -f hadoop_test
+
