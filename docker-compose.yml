@@ -1,0 +1,39 @@
+masternode:
+  image: alex202/hadoop:2.7.5
+  container_name: masternode
+  hostname: masternode
+  environment:
+    - NAMENODE=masternode
+  ports:
+    - "8042:8042"
+    - "8088:8088"
+    - "9000:9000"
+    - "50090:50090"
+    - "50075:50075"
+
+datanode01:
+  image: alex202/hadoop:2.7.5
+  container_name: datanode01
+  links:
+    - "masternode:masternode"
+  hostname: datanode01
+  environment:
+    - NAMENODE=masternode
+
+datanode02:
+  image: alex202/hadoop:2.7.5
+  container_name: datanode02
+  links:
+    - "masternode:masternode"
+  hostname: datanode02
+  environment:
+    - NAMENODE=masternode
+
+datanode03:
+  image: alex202/hadoop:2.7.5
+  container_name: datanode03
+  links:
+    - "masternode:masternode"
+  hostname: datanode03
+  environment:
+    - NAMENODE=masternode

@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alex202/docker-make
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Container
+          command: |
+            GIT_BRANCH=$CIRCLE_BRANCH make docker_build
+      - run:
+          name: Test Container
+          command: |
+            GIT_BRANCH=$CIRCLE_BRANCH make docker_test
+      - run:
+          name: Publish Container
+          command: |
+            echo $DOCKER_PASS | base64 -d > ${HOME}/docker_pass
+            docker login -u $DOCKER_USER -p "$(cat ${HOME}/docker_pass)"
+            GIT_BRANCH=$CIRCLE_BRANCH make docker_push
